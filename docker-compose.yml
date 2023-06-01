@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./docker/php/Dockerfile
     ports:
-    - 5172:5173
+    - 5172:5172
     volumes:
       - ./src/:/app
 
