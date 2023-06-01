@@ -13,7 +13,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index');
+        $posts = Auth::user()->posts()->select('title', 'comment', 'image_path')->paginate(24);
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -29,14 +30,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'image_path' => 'required|file|image',
+            'comment' => 'required',
+        ]);
+
+        $image_path = $request->file('image_path')->store('public/images');
+
         Post::create([
             'title' => $request->title,
-            'image_path' => $request->image_path,
             'comment' => $request->comment,
+            'image_path' => basename($image_path),
             'user_id' => $request->user()->id,
         ]);
 
-        return to_route('posts.index');
+        return redirect()->route('posts.index');
     }
 
     /**
