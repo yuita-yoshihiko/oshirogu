@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('posts', PostController::class);
+Route::post('/{postId}/like',[LikeController::class,'store'])->name('likes.like');
+Route::delete('/{postId}/unlike',[LikeController::class,'destroy'])->name('likes.unlike');
 
 require __DIR__.'/auth.php';
