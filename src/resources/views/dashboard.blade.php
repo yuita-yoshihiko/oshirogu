@@ -22,8 +22,8 @@
                   <div class="flex items-center flex-wrap ">
                     <span class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
                       <div class='btn-group'>
-                        @if ($isAuthenticated && $isNotPostOwner)
-                            @if ($isLiked)
+                        @if ($isAuthenticated && $post->isNotPostOwner)
+                            @if ($post->isLiked)
                                 {!! Form::open(['route' => ['likes.unlike', $post->id], 'method' => 'delete']) !!}
                                     {!! Form::submit('いいねを外す', ['class' => "btn btn-danger btn-sm"]) !!}
                                 {!! Form::close() !!}

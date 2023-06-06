@@ -8,17 +8,18 @@ use App\Models\Post;
 
 class DashboardController extends Controller
 {
-    public function index()
-    {
-      $posts = Post::all();
+  public function index()
+  {
       $isAuthenticated = Auth::check();
-
-      foreach ($posts as $post) {
-        $isNotPostOwner = $isAuthenticated ? Auth::id() != $post->user_id : false;
-        $isLiked = $isAuthenticated ? Auth::user()->islike($post->id) : false;
-      }
-
-      return view('dashboard', ['posts' => $posts], compact('post', 'isAuthenticated', 'isNotPostOwner', 'isLiked'));
-    }
+  
+      $posts = Post::all()->map(function ($post) use ($isAuthenticated) {
+          $post->isNotPostOwner = $isAuthenticated ? Auth::id() != $post->user_id : false;
+          $post->isLiked = $isAuthenticated ? Auth::user()->islike($post->id) : false;
+          
+          return $post;
+      });
+  
+      return view('dashboard', ['posts' => $posts, 'isAuthenticated' => $isAuthenticated]);
+  }
 
 }
