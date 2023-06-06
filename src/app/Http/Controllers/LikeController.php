@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
+use App\Models\Post;
 
 class LikeController extends Controller
 {
@@ -20,4 +21,5 @@ class LikeController extends Controller
         Auth::user()->unlike($id);
         return back();
     }
+    
 }

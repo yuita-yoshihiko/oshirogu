@@ -22,17 +22,16 @@
                   <div class="flex items-center flex-wrap ">
                     <span class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
                       <div class='btn-group'>
-                        @if (Auth::id() != $post->user_id)
-                          @if (Auth::user()->islike($post->id))
-                            {!! Form::open(['route' => ['likes.unlike', $post->id], 'method' => 'delete']) !!}
-                              {!! Form::submit('いいねを外す', ['class' => "btn btn-danger btn-sm"]) !!}
-                            {!! Form::close() !!}
-
-                          @else
-                            {!! Form::open(['route' => ['likes.like', $post->id]]) !!}
-                              {!! Form::submit('いいね！', ['class' => "btn btn-primary btn-sm"]) !!}
-                            {!! Form::close() !!}
-                          @endif
+                        @if ($isAuthenticated && $isNotPostOwner)
+                            @if ($isLiked)
+                                {!! Form::open(['route' => ['likes.unlike', $post->id], 'method' => 'delete']) !!}
+                                    {!! Form::submit('いいねを外す', ['class' => "btn btn-danger btn-sm"]) !!}
+                                {!! Form::close() !!}
+                            @else
+                                {!! Form::open(['route' => ['likes.like', $post->id]]) !!}
+                                    {!! Form::submit('いいね！', ['class' => "btn btn-primary btn-sm"]) !!}
+                                {!! Form::close() !!}
+                            @endif
                         @endif
                       </div>
                     </span>
