@@ -23,7 +23,7 @@
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('posts.liked')" :active="request()->routeIs('posts.liked')">
-                            {{ __('お気に入り一覧') }}
+                            {{ __('いいね一覧') }}
                         </x-nav-link>
                     </div>
                 @endif

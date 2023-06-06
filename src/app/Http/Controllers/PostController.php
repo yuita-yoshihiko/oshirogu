@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Auth::user()->posts()->select('title', 'comment', 'image_path')->paginate(24);
+        $posts = Auth::user()->Posts;
         return view('posts.index', compact('posts'));
     }
 
