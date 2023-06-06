@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('posts/liked', [PostController::class, 'showLikedPosts'])->name('posts.liked');
 Route::resource('posts', PostController::class);
 Route::post('/{postId}/like',[LikeController::class,'store'])->name('likes.like');
 Route::delete('/{postId}/unlike',[LikeController::class,'destroy'])->name('likes.unlike');

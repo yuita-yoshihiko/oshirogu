@@ -53,9 +53,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $task = Post::find($id);
+        $post = Post::find($id);
     
-        return view('posts.show', compact('posts'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -63,7 +63,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $task = Post::find($id);
+        $post = Post::find($id);
 
         return view('posts.edit', compact('post'));
     }
@@ -73,11 +73,11 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $task = Post::find($id);
+        $post = Post::find($id);
 
-        $task->title = $request->title;
-        $task->memo = $request->memo;
-        $task->save();
+        $post->title = $request->title;
+        $post->memo = $request->memo;
+        $post->save();
 
         return to_route('posts.index');
     }
@@ -87,9 +87,16 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $task = Post::find($id);
-        $task->delete();
+        $post = Post::find($id);
+        $post->delete();
 
         return to_route('posts.index');
+    }
+
+    public function showLikedPosts()
+    {
+        $likedPosts = Auth::user()->likedPosts;
+
+        return view('posts.liked', ['likedPosts' => $likedPosts]);
     }
 }

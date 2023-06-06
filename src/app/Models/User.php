@@ -48,16 +48,15 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    //多対多のリレーションを書く
-    public function likes()
+    public function likedPosts()
     {
-        return $this->belongsToMany('App\Models\Post','likes','user_id','post_id')->withTimestamps();
+        return $this->belongsToMany(Post::class, 'likes');
     }
 
     //この投稿に対して既にlikeしたかどうかを判別する
     public function isLike($postId)
     {
-        return $this->likes()->where('post_id',$postId)->exists();
+        return $this->likedPosts()->where('post_id',$postId)->exists();
     }
 
     //isLikeを使って、既にlikeしたか確認したあと、いいねする（重複させない）
@@ -68,7 +67,7 @@ class User extends Authenticatable
         if($exist){
             return false;
         } else {
-            $this->likes()->attach($postId);
+            $this->likedPosts()->attach($postId);
             return true;
         }
     }
@@ -79,7 +78,7 @@ class User extends Authenticatable
         $exist = $this->isLike($postId);
 
         if($exist){
-            $this->likes()->detach($postId);
+            $this->likedPosts()->detach($postId);
             return true;
         } else {
             return false;
