@@ -1,6 +1,6 @@
 <x-app-layout>
   <div class="mx-auto container pt-12 flex flex-row justify-between items-center">
-    <div class='text-2xl text-gray-800'>自分の推し一覧</div>
+    <div class='text-2xl text-gray-800'>いいね一覧</div>
       <div class="p-2">
         <a href="{{ route('posts.create') }}" class="btn flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">推し登録へ</a>
       </div>
